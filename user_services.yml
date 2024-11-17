@@ -1,0 +1,22 @@
+# product_service/Dockerfile
+
+# Use official Python image from Docker Hub
+FROM python:3.9-slim
+
+# Set working directory
+WORKDIR /user_services
+
+# Copy requirements.txt
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the application code
+COPY . /user_services
+
+# Expose port for FastAPI
+EXPOSE 8003
+
+# Command to run FastAPI using Uvicorn
+CMD ["uvicorn", "app_router:app", "--host", "0.0.0.0", "--port", "8003"]
